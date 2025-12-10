@@ -38,10 +38,6 @@ app.secret_key = os.environ.get("SECRET_KEY", "dev-secret")  # used for flash me
 
 with app.app_context():
     init_db()
-# Run init_db() before the first request is handled
-@app.before_request
-def setup():
-    init_db()
 
 # Home page — list all expenses
 @app.route("/")
@@ -94,5 +90,6 @@ def delete(eid):
 # Run the app when executed directly
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 

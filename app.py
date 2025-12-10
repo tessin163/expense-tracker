@@ -32,6 +32,7 @@ def init_db():
         conn.execute(sql)
 
 # Flask app setup
+import os
 app = Flask(__name__)
 app.secret_key = "dev-secret"  # used for flash messages (change in production)
 
@@ -91,3 +92,4 @@ def delete(eid):
 # Run the app when executed directly
 if __name__ == "__main__":
     app.run(debug=True)
+

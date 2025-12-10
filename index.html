@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>All Expenses</h2>
+
+{% if expenses %}
+<table class="table table-bordered table-striped mt-3">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Category</th>
+            <th>Note</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for e in expenses %}
+        <tr>
+            <td>{{ e.id }}</td>
+            <td>{{ e.date }}</td>
+            <td>₹{{ e.amount }}</td>
+            <td>{{ e.category }}</td>
+            <td>{{ e.note }}</td>
+            <td>
+                <form action="/delete/{{ e.id }}" method="post">
+                    <button class="btn btn-danger btn-sm" type="submit">X</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% else %}
+<div class="alert alert-secondary mt-3">No expenses yet. Click Add Expense.</div>
+{% endif %}
+
+{% endblock %}

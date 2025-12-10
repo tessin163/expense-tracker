@@ -32,7 +32,7 @@ def init_db():
         conn.execute(sql)
 
 # Flask app setup
-import os
+
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "dev-secret")  # used for flash messages (change in production)
 
@@ -46,7 +46,10 @@ def index():
         cur = conn.execute("SELECT * FROM expenses ORDER BY date DESC")
         rows = cur.fetchall()
     return render_template("index.html", expenses=rows)
-
+     except Exception as e:
+        # helpful message for debug mode (will also show in logs)
+        app.logger.exception("Error rendering index")
+        raise
 # Add expense page (GET shows form, POST processes it)
 @app.route("/add", methods=("GET", "POST"))
 def add():
@@ -90,6 +93,7 @@ def delete(eid):
 # Run the app when executed directly
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
